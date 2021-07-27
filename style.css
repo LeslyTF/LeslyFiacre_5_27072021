@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'belligerent';
+    src: url('../teddies/fonts/belligerent-webfont.woff2') format('woff2'),
+         url('../teddies/fonts/belligerent-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.card{
+    width: 50%;
+}
+/*style page produit*/
+
