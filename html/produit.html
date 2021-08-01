@@ -26,54 +26,90 @@
           </nav>
       </header>
       <section>
-        <h2 class = "titre"></h2>
-        <article class="container-card">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Voir plus</a>
-            </div>
-          </div>
-        </div>
+        <h2>Collection Peluches Orinoco 2021</h2>
+        <article id="container" class="container-card">
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </article>
       </section>
       <script>
       
-      
-      
-        let titre = document.getElementsByClassName("titre");
-        console.log(titre);
-        let article = document.createElement("article");
-        article.classList.add("container-card");
-        console.log(article);
-        let section = document.getElementsByTagName("section");
-        console.log(section);
+        let container = document.getElementById("container");
        
-        
-        
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+
   
      
    
-    fetch("http://localhost:3000/api/teddies")
+    fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
     .then(function(res){
         return res.json(); 
         console.log(res);
     })
-    .then(function(peluches){
-    console.log(peluches);
-    for(peluche of peluches){
-        titre.TextContent = peluche[0].name;
-        console.log(titre);
+    .then(function(peluche){
+    console.log(peluche);
+    let imgDiv = document.createElement("div");
+    imgDiv.classList.add("imgpart");
+    let image = document.createElement("img");
+    image.setAttribute("src", peluche.imageUrl);
+    console.log(image);
+    let infoDiv = document.createElement("div");
+    infoDiv.classList.add("infopart");
+    let pelucheNom = document.createElement("H5");
+    pelucheNom.innerText=peluche.name; 
+    let pPrice = document.createElement("p");
+    pPrice.innerText = peluche.price;
+    let couleurs = peluche.colors;
+    console.log(couleurs);
+   
+    //menu couleur
+    let tab = document.createElement("div");
+    let select = document.createElement("select");
+    select.classList.add("form-select", "form-select-lg", "mb-3");
+    select.setAttribute("aria-label", ".form-select-lg example");
+    console.log(select);
+    let option = document.createElement("option");
+    option.setAttribute("selected", "");
+    option.innerText="choix de couleurs";
+    console.log(option);
+    infoDiv.appendChild(tab);
+    console.log(infoDiv);
+    tab.appendChild(select);
+    select.appendChild(option);
+   
+    for(color of peluche.colors){
+    let options = document.createElement("option");
+    options.setAttribute("value", peluche.colors.indexOf(color));
+    options.innerText=color;
+    select.appendChild(options);
+    console.log(tab);
     }
-  })
+ 
+
+
+
+
+    console.log(pPrice);
+    console.log(infoDiv);
+    console.log(imgDiv);
+    console.log(pPrice);
+
+    container.appendChild(imgDiv);
+    imgDiv.appendChild(image);
+    container.appendChild(infoDiv);
+    infoDiv.appendChild(pelucheNom);
+    infoDiv.appendChild(pPrice);
+
+    })
     .catch(function(err) {
       // Une erreur est survenue
-    });
-
-      
-        
-      
+    });      
       </script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <!-- Option 2: Separate Popper and Bootstrap JS -->
