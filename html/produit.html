@@ -18,9 +18,9 @@
       <header>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"> <img class="logosize" src="images/logoorinoco.png" alt="logo-orinoco"/> </a>
+              <a class="navbar-brand" href="#"> <img class="logosize" src="../images/logoorinoco.png" alt="logo-orinoco"/> </a>
               <form class="d-flex">
-                <a href="#" class="btn btn-outline-danger"><i class="fas fa-shopping-cart panier">Panier</i></a>
+                <a href="panier.html" class="btn btn-outline-danger"><i class="fas fa-shopping-cart panier">Panier</i></a>
               </form>
             </div>
           </nav>
@@ -28,12 +28,6 @@
       <section>
         <h2>Collection Peluches Orinoco 2021</h2>
         <article id="container" class="container-card">
-          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
         </article>
       </section>
       <script>
@@ -53,59 +47,84 @@
         console.log(res);
     })
     .then(function(peluche){
-    console.log(peluche);
-    let imgDiv = document.createElement("div");
-    imgDiv.classList.add("imgpart");
-    let image = document.createElement("img");
-    image.setAttribute("src", peluche.imageUrl);
-    console.log(image);
-    let infoDiv = document.createElement("div");
-    infoDiv.classList.add("infopart");
-    let pelucheNom = document.createElement("H5");
-    pelucheNom.innerText=peluche.name; 
-    let pPrice = document.createElement("p");
-    pPrice.innerText = peluche.price;
-    let couleurs = peluche.colors;
-    console.log(couleurs);
+      let imgDiv = document.createElement("div");
+      imgDiv.classList.add("imgpart");
+      let image = document.createElement("img");
+      image.setAttribute("src", peluche.imageUrl);
    
-    //menu couleur
-    let tab = document.createElement("div");
-    let select = document.createElement("select");
-    select.classList.add("form-select", "form-select-lg", "mb-3");
-    select.setAttribute("aria-label", ".form-select-lg example");
-    console.log(select);
-    let option = document.createElement("option");
-    option.setAttribute("selected", "");
-    option.innerText="choix de couleurs";
-    console.log(option);
-    infoDiv.appendChild(tab);
-    console.log(infoDiv);
-    tab.appendChild(select);
-    select.appendChild(option);
-   
-    for(color of peluche.colors){
-    let options = document.createElement("option");
-    options.setAttribute("value", peluche.colors.indexOf(color));
-    options.innerText=color;
-    select.appendChild(options);
-    console.log(tab);
-    }
- 
+      let infoDiv = document.createElement("div");
+      infoDiv.classList.add("infopart");
+      let pelucheNom = document.createElement("H5");
+      pelucheNom.innerText=peluche.name; 
+      let pPrice = document.createElement("p");
+      pPrice.innerText = peluche.price;
+      let couleurs = peluche.colors;
+      console.log(couleurs);
+      let buttonPanier = document.createElement("button");
+      buttonPanier.classList.add("btn", "btn-warning", "ajoutPanier");
+      //butonPanier
+      let ajouter = document.createElement("a");
+      ajouter.classList.add("gopanier");
+      ajouter.innerText="Ajouter au panier";
+      ajouter.setAttribute("href", "#");
+      buttonPanier.appendChild(ajouter);
+    
+      console.log(buttonPanier);
 
+    
+      //menu couleur
+      let tab = document.createElement("div");
+      let select = document.createElement("select");
+      select.classList.add("form-select", "form-select-lg", "mb-3");
+      select.setAttribute("aria-label", ".form-select-lg example");
+      console.log(select);
+      let option = document.createElement("option");
+      option.setAttribute("selected", "");
+      option.innerText="Couleurs disponible";
+      console.log(option);
+      
+      console.log(infoDiv);
+      tab.appendChild(select);
+      select.appendChild(option);
+      let pDescription = document.createElement("p");
+      pDescription.innerText= peluche.description ;
+    
 
+      console.log(pPrice);
+      console.log(infoDiv);
+      console.log(imgDiv);
+      console.log(pPrice);
 
+      container.appendChild(imgDiv);
+      imgDiv.appendChild(image);
+      container.appendChild(infoDiv);
+      infoDiv.appendChild(pelucheNom);
+      infoDiv.appendChild(tab);
+      infoDiv.appendChild(pDescription);
+      infoDiv.appendChild(pPrice);
+      infoDiv.appendChild(buttonPanier);
 
-    console.log(pPrice);
-    console.log(infoDiv);
-    console.log(imgDiv);
-    console.log(pPrice);
-
-    container.appendChild(imgDiv);
-    imgDiv.appendChild(image);
-    container.appendChild(infoDiv);
-    infoDiv.appendChild(pelucheNom);
-    infoDiv.appendChild(pPrice);
-
+      for(color of peluche.colors){
+        let options = document.createElement("option");
+        options.setAttribute("value", peluche.colors.indexOf(color));
+        options.innerText=color;
+        select.appendChild(options);
+        console.log(tab);
+      }
+      // partie panier
+      //let panier = document.getElementsByClassName("gopanier");
+      //console.log (panier);
+      buttonPanier.addEventListener("click", function(event){
+        console.log("panierok");
+        console.log(event);  
+        console.log(peluche);
+        var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
+        panierPeluches.push(peluche);
+        console.log(panierPeluches);
+        localStorage.setItem("panier", JSON.stringify(panierPeluches));
+        
+      })
+    
     })
     .catch(function(err) {
       // Une erreur est survenue
