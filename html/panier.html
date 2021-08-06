@@ -27,11 +27,59 @@
       </header>
       <section>
         <h2>Resumé du panier</h2>
-
         <article id="container" class="container-card">
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Subheading</div>
+                    Cras justo odio
+                  </div>
+                  <span class="badge bg-primary rounded-pill">14</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Subheading</div>
+                    Cras justo odio
+                  </div>
+                  <span class="badge bg-primary rounded-pill">14</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Subheading</div>
+                    Cras justo odio
+                  </div>
+                  <span class="badge bg-primary rounded-pill">14</span>
+                </li>
+              </ol>
         </article>
       </section>
       <script>
           var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
           console.log(panierPeluches);
+          let articles = document.getElementById("container");
+          // formulaire article
+          let ol = document.createElement("ol");
+          ol.classList.add("list-group", "list-group-numbered");
+          let li = document.createElement("li");
+          li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-start");
+          let colonnePanier = document.createElement("div");
+          colonnePanier.classList.add("ms-2", "me-auto");
+          articles.appendChild(ol);
+          ol.appendChild(li);
+          console.log(ol);
+          let contenu = document.getElementById("container");
+          for (article of panierPeluches){
+              let nomArticlePanier = document.createElement("div");
+              nomArticlePanier.innerText = article.name;
+              nomArticlePanier.classList.add("fw-bold");
+              colonnePanier.innerText= "Retirer";
+              let spanPrix = document.createElement("span");
+              spanPrix.classList.add("badge", "bg-primary", "rounded-pill");
+              spanPrix.innerText= article.prix;
+              li.appendChild(colonnePanier);
+              colonnePanier.appendChild(nomArticlePanier);
+              colonnePanier.innerText= "Retirer";
+              colonnePanier.appendChild(spanPrix);
+ 
+          }
       </script>
