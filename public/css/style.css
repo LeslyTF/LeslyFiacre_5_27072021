@@ -1,8 +1,74 @@
+@font-face {
+    font-family: 'belligerent';
+    src: url('../../fonts/belligerent-webfont.woff2') format('woff2'),
+         url('../../fonts/belligerent-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'baloo';
+    src: url('../../fonts/baloo-regular-webfont.woff2') format('woff2'),
+         url('../../fonts/baloo-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 body{
     background-color: #f3e9f1;
+    padding:1%;
+    font-family: 'baloo';
+}
+/*partie Head*/
+#navid{
+    padding: 0;
+}
+a.navbar-brand{
+    width:50%;
 }
 .logosize{
-    width:40%;
-    height:5rem;
-    border-radius: 20px;
+    width:35%;
 }
+.container-fluid{
+    background-color:#f3e9f1 ;
+}
+/*Page Panier*/
+.enseigne,h5{
+    font-family:'belligerent';
+    color:black;
+}
+.titre-panier{
+    width:90%;
+    margin: 5%;
+    border-bottom: 5px solid #935df2;
+    text-align: center;
+}
+.titre-partie-panier{
+    width:50%;
+    margin:3%;
+}
+.partie-panier{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.ligne-panier{
+    display: flex;
+    justify-content: space-between;
+    border:2px solid grey;
+    width:80%;
+    margin:4%;
+    border:2px solid grey;
+}
+.ol-contenant{
+    width:50%;
+}
+
+.conteneur-principal{
+    display:flex;
+    justify-content: space-around;
+}
+.partie-panier{
+    border: 2px solid #e78b06;
+}
+

@@ -7,79 +7,89 @@
     <!--Fontawesome-->
     <script src="https://kit.fontawesome.com/1810ba3e26.js" crossorigin="anonymous"></script>
     <!--Css-->
-    <link rel="stylesheet" href="public/css/style.css"/>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel=stylesheet href="style.css">
-    <title>peluches Orinoco</title>
+    <link rel=stylesheet href="../public/css/style.css">
+    <title>Orinoco Peluches panier</title>
   </head>
   <body id="body">
     <main class="contenu-page">
       <header>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"> <img class="logosize" src="../images/logoorinoco.png" alt="logo-orinoco"/> </a>
+              <a class="navbar-brand" href="../index.html"> <img class="logosize" src="../images/logoorinoco.png" alt="logo-orinoco"/> </a>
               <form class="d-flex">
-                <a href="#" class="btn btn-outline-danger"><i class="fas fa-shopping-cart panier">Panier</i></a>
+                <a href="../index.html" class="btn btn-outline-danger"><i class="panier">Accueil</i></a>
               </form>
             </div>
           </nav>
       </header>
       <section>
-        <h2>Resumé du panier</h2>
-        <article id="container" class="container-card">
-            <ol class="list-group list-group-numbered">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
+        <h2 class="col-5 titre-panier">Finalisez votre commande <span class="enseigne">Orinoco</span></h2>
+        <div class="conteneur-principal">
+            <article id="container" class="container-card col-5 partie-panier">
+                <h3 class="titre-partie-panier">Résumé de votre panier</h3>
+            </article>
+            <article class="partie-forms col-5">
+            <form class="row g-3">
+                <div class="col-md-4">
+                  <label for="validationNom" class="form-label">Nom</label>
+                  <input type="text" class="form-control" id="validationDefault01" placeholder="Durant" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationPrenom" class="form-label">Prénom</label>
+                  <input type="text" class="form-control" id="validationPrenom" placeholder="Dominique" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationEmail" class="form-label">Email</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control" id="validationEmail"  placeholder="@" required>
                   </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-              </ol>
-        </article>
+                </div>
+                <div class="col-md-6">
+                  <label for="validationAdresse" class="form-label">Adresse</label>
+                  <input type="text" class="form-control" id="validationAdresse" placeholder="Entrez votre adresse" required>
+                </div>
+                <div class="col-md-3">
+                  <label for="validationCodePostal" class="form-label">Code Postal</label>
+                  <input type="text" pattern="[1-10000]" class="form-control" id="validationCodePostal" placeholder="CP" required>
+                </div>
+                <div class="col-md-3">
+                  <label for="validationPays" class="form-label">Pays</label>
+                  <input type="text" class="form-control" id="validationPays" required>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Acheter</button>
+                </div>
+              </form>
+            </article>
+        </div>
       </section>
+      <footer> 
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <script>
           var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
           console.log(panierPeluches);
           let articles = document.getElementById("container");
           // formulaire article
           let ol = document.createElement("ol");
-          ol.classList.add("list-group", "list-group-numbered");
-          let li = document.createElement("li");
-          li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-start");
-          let colonnePanier = document.createElement("div");
-          colonnePanier.classList.add("ms-2", "me-auto");
-          articles.appendChild(ol);
-          ol.appendChild(li);
-          console.log(ol);
-          let contenu = document.getElementById("container");
+          ol.classList.add("list-group", "list-group-numbered", "ol-contenant");
           for (article of panierPeluches){
-              let nomArticlePanier = document.createElement("div");
-              nomArticlePanier.innerText = article.name;
-              nomArticlePanier.classList.add("fw-bold");
-              colonnePanier.innerText= "Retirer";
-              let spanPrix = document.createElement("span");
-              spanPrix.classList.add("badge", "bg-primary", "rounded-pill");
-              spanPrix.innerText= article.prix;
-              li.appendChild(colonnePanier);
-              colonnePanier.appendChild(nomArticlePanier);
-              colonnePanier.innerText= "Retirer";
-              colonnePanier.appendChild(spanPrix);
- 
+              console.log(article);
+              let lignePanier = document.createElement("li");
+              lignePanier.innerHTML= article.name;
+              console.log(lignePanier);
+              lignePanier.classList.add("list-group-item", "justify-content-between", "ligne-panier");
+              let enlever = document.createElement("button");
+              enlever.classList.add("btn-danger", "retirer");
+              enlever.innerText= "Retirer";
+              articles.appendChild(ol);
+              ol.appendChild(lignePanier);
+              lignePanier.appendChild(enlever);
+              console.log(ol);
           }
       </script>
+      </main>
+      </body>
+      </html>

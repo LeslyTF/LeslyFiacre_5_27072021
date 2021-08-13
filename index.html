@@ -7,27 +7,25 @@
     <!--Fontawesome-->
     <script src="https://kit.fontawesome.com/1810ba3e26.js" crossorigin="anonymous"></script>
     <!--Css-->
-    <link rel="stylesheet" href="public/css/style.css"/>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel=stylesheet href="style.css">
-    <title>Hello, world!</title>
+    <link rel=stylesheet href="public/css/style.css">
+    <title>Orinoco Peluches</title>
   </head>
   <body id="body">
     <main class="contenu-page">
       <header>
-        <nav class="navbar navbar-light bg-light">
+        <nav id="navid"class="navbar navbar-light bg-light partie-nav">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"> <img class="logosize" src="images/logoorinoco.png" alt="logo-orinoco"/> </a>
+              <a class="navbar-brand" href="index.html"> <img class="logosize" src="images/logoorinoco.png" alt="logo-orinoco"/> </a>
               <form class="d-flex">
-                <a href="#" class="btn btn-outline-danger"><i class="fas fa-shopping-cart panier">Panier</i></a>
+                <a href="html/panier.html" class="btn btn-outline-danger"><i class="fas fa-shopping-cart panier">Panier</i></a>
               </form>
             </div>
           </nav>
       </header>
-
       <section>
-        <h2>Collection Peluches Orinoco 2021</h2>
+        <h2 class="titre-accueil">Collection Peluches Orinoco 2021</h2>
         <article id="container" class="container-card">
         </article>
       </section>
@@ -71,17 +69,17 @@
   cardTitle.classList.add("card-title");
   cardTitle.innerText= peluche.name;
     
-  let link = document.createElement("a");
-  link.classList.add("btn"); 
-  link.classList.add("btn-primary");           
-  link.setAttribute("href", "html/produit.html?id="+peluche._id);
-  link.innerText = "Voir plus";
+    let link = document.createElement("a");
+    link.classList.add("btn"); 
+    link.classList.add("btn-primary");           
+    link.setAttribute("href", "html/produit.html?id="+peluche._id);
+    link.innerText = "Voir plus";
   
-  let image = document.createElement("img");
+    let image = document.createElement("img");
 
-  image.setAttribute("src", peluche.imageUrl);
-  image.setAttribute("alt","peluche-orinoco" );
-  image.classList.add("card-img-top");
+    image.setAttribute("src", peluche.imageUrl);
+    image.setAttribute("alt","peluche-orinoco" );
+    image.classList.add("card-img-top");
   
     container.appendChild(card);
     card.appendChild(image); 
