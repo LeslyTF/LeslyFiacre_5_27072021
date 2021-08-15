@@ -25,7 +25,7 @@
           </nav>
       </header>
       <section>
-        <h2 class="titre-accueil">Collection Peluches Orinoco 2021</h2>
+        <h2 class="titre-accueil titre-index">Collection Peluches Orinoco 2021</h2>
         <article id="container" class="container-card">
         </article>
       </section>
@@ -62,7 +62,7 @@
   for(peluche of peluches){
   console.log(peluche);  
   let card = document.createElement("div");
-  card.classList.add("card");
+  card.classList.add("card","card-index");
   let cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
   let cardTitle = document.createElement("H5");

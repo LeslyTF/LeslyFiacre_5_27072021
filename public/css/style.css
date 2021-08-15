@@ -13,12 +13,8 @@
     font-style: normal;
 
 }
-body{
-    background-color: #f3e9f1;
-    padding:1%;
-    font-family: 'baloo';
-}
-/*partie Head*/
+/*--------------------partie Head------------------*/
+
 #navid{
     padding: 0;
 }
@@ -30,6 +26,47 @@ a.navbar-brand{
 }
 .container-fluid{
     background-color:#f3e9f1 ;
+}
+/*-------------------body font---------------*/
+
+body{
+    background-color: #f3e9f1;
+    padding:1%;
+    font-family: 'baloo';
+}
+/*---------------------page index------------*/
+.titre-index{
+    text-align: center;
+}
+.container-card{
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.card-index{
+    width:30%;
+    margin:1%;
+    border-radius:8%;
+    box-shadow: 10px 10px 40px rgb(177, 177, 177);
+}
+.card-img-top{
+    height:100%;
+    border-radius: 8% 8% 0% 0%;
+    
+}
+.card-body{
+    padding-left: 5%;
+}
+/*---------------------Page produit---------------*/
+.container-card{
+    display: flex;
+    /*flex-wrap: nowrap;*/
+}
+.img-produit{
+    width: 100%;
+}
+.imgpart{
+    width:50%;
 }
 /*Page Panier*/
 .enseigne,h5{
@@ -56,7 +93,7 @@ a.navbar-brand{
     display: flex;
     justify-content: space-between;
     border:2px solid grey;
-    width:80%;
+    width:90%;
     margin:4%;
     border:2px solid grey;
 }

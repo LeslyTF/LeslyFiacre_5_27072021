@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-md-3">
                   <label for="validationCodePostal" class="form-label">Code Postal</label>
-                  <input type="text" pattern="[1-10000]" class="form-control" id="validationCodePostal" placeholder="CP" required>
+                  <input type="text" class="form-control" id="validationCodePostal" placeholder="CP" required>
                 </div>
                 <div class="col-md-3">
                   <label for="validationPays" class="form-label">Pays</label>
@@ -76,19 +76,29 @@
           let ol = document.createElement("ol");
           ol.classList.add("list-group", "list-group-numbered", "ol-contenant");
           for (article of panierPeluches){
-              console.log(article);
+              console.log(panierPeluches);
               let lignePanier = document.createElement("li");
               lignePanier.innerHTML= article.name;
-              console.log(lignePanier);
+              let spanPrix = document.createElement("span");
+              let articlePrix = "Prix: " + article.price+"€";
+              spanPrix.innerText= articlePrix;
               lignePanier.classList.add("list-group-item", "justify-content-between", "ligne-panier");
               let enlever = document.createElement("button");
               enlever.classList.add("btn-danger", "retirer");
               enlever.innerText= "Retirer";
               articles.appendChild(ol);
               ol.appendChild(lignePanier);
+              lignePanier.appendChild(spanPrix);
               lignePanier.appendChild(enlever);
               console.log(ol);
+              enlever.addEventListener("click", function(event){
+                panierPeluches.pop(article);
+                localStorage.setItem("panier", JSON.stringify(panierPeluches));
+                console.log(event);
+                })
+              
           }
+            
       </script>
       </main>
       </body>
