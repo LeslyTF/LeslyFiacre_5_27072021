@@ -28,13 +28,12 @@
         <h2 class="col-5 titre-panier">Finalisez votre commande <span class="enseigne">Orinoco</span></h2>
         <div class="conteneur-principal">
             <article id="container" class="container-card col-5 partie-panier">
-                <h3 class="titre-partie-panier">Résumé de votre panier</h3>
             </article>
             <article class="partie-forms col-5">
             <form class="row g-3">
                 <div class="col-md-4">
                   <label for="validationNom" class="form-label">Nom</label>
-                  <input type="text" class="form-control" id="validationDefault01" placeholder="Durant" required>
+                  <input type="text" class="form-control" id="validationNom" value="" placeholder="Durant" required>
                 </div>
                 <div class="col-md-4">
                   <label for="validationPrenom" class="form-label">Prénom</label>
@@ -59,7 +58,7 @@
                   <input type="text" class="form-control" id="validationPays" required>
                 </div>
                 <div class="col-12">
-                  <button class="btn btn-primary" type="submit">Acheter</button>
+                  <button id="validerAchat" class="btn btn-primary" type="submit">Acheter</button>
                 </div>
               </form>
             </article>
@@ -69,35 +68,105 @@
       </footer>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <script>
+          //Recuperation des données du local storage.
           var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
           console.log(panierPeluches);
+
+          //creation du contenu de l'affichage du panier.
           let articles = document.getElementById("container");
-          // formulaire article
+          let titreEtatPanier = document.createElement("h3");
+          titreEtatPanier.classList.add("titre-partie-panier");
+          console.log(titreEtatPanier);
+          console.log(panierPeluches.length);
+          let boutonValider = document.getElementById("validerAchat");
+          
+          function etatPanier (){
+            let etat;
+            if(panierPeluches.length >= 1){
+                  console.log(panierPeluches.length);
+                  etat = titreEtatPanier.textContent="Résumé du panier";
+            }else{
+                  
+              etat = titreEtatPanier.textContent= "Votre panier est vide";
+
+                }
+          }
+
+          articles.appendChild(titreEtatPanier);
           let ol = document.createElement("ol");
+          
           ol.classList.add("list-group", "list-group-numbered", "ol-contenant");
-          for (article of panierPeluches){
-              console.log(panierPeluches);
+
+          //fonction afficher panier
+          function afficherPanier (){
+            // nettoyage du panier 
+            ol.innerHTML="";
+            //creation du panier
+            panierPeluches.map((article, i) => {
               let lignePanier = document.createElement("li");
               lignePanier.innerHTML= article.name;
               let spanPrix = document.createElement("span");
-              let articlePrix = "Prix: " + article.price+"€";
-              spanPrix.innerText= articlePrix;
+              spanPrix.innerText= "Prix: " + article.price / 100 +"€";
               lignePanier.classList.add("list-group-item", "justify-content-between", "ligne-panier");
               let enlever = document.createElement("button");
               enlever.classList.add("btn-danger", "retirer");
+              enlever.onclick =  function (event){
+                panierPeluches.splice(i, 1);
+                localStorage.setItem("panier", JSON.stringify(panierPeluches));
+                etatPanier();
+                afficherPanier ();
+              }
+              console.log(lignePanier);
               enlever.innerText= "Retirer";
               articles.appendChild(ol);
               ol.appendChild(lignePanier);
               lignePanier.appendChild(spanPrix);
               lignePanier.appendChild(enlever);
-              console.log(ol);
-              enlever.addEventListener("click", function(event){
-                panierPeluches.pop(article);
-                localStorage.setItem("panier", JSON.stringify(panierPeluches));
-                console.log(event);
-                })
-              
+              console.log(panierPeluches);
+            });
           }
+              //test creation de fonction vers la page de remerciement
+              function lien (){
+              let lienValider = document.createElement("a");
+              lienValider.setAttribute("href", "html/valider.html");
+              boutonValider.appendChild(lienValider);
+              } 
+
+              boutonValider.addEventListener('click', function (event){
+                event.preventDefault();
+                //recupération des valeurs du formulaire
+                let contact ={
+                  firstName:document.getElementById("validationNom").value,
+                  lastName: document.getElementById("validationPrenom").value,
+                  address: document.getElementById("validationAdresse").value,
+                  city: document.getElementById("validationCodePostal").value,
+                  email: document.getElementById("validationEmail").value
+              }
+            
+
+                let tableauProduit = JSON.parse(localStorage.getItem("panier")) ||  [];
+                var products = JSON.stringify(tableauProduit.map(function(produit) {
+                  return produit._id;
+                  }));
+
+                console.log(JSON.stringify({contact,products}));
+                fetch("http://localhost:3000/api/teddies/order",{
+                      method: "POST",
+                      headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                        body: JSON.stringify({contact,products})
+                        
+                    });
+
+
+              console.log(tableauProduit);
+              })
+            afficherPanier ();
+            etatPanier();
+            lien();
+
             
       </script>
       </main>

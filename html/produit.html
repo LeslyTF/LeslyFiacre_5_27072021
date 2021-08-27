@@ -57,7 +57,7 @@
       let pelucheNom = document.createElement("H5");
       pelucheNom.innerText=peluche.name; 
       let pPrice = document.createElement("p");
-      pPrice.innerText = peluche.price;
+      pPrice.innerText = peluche.price/100+"€";
       let couleurs = peluche.colors;
       console.log(couleurs);
       let buttonPanier = document.createElement("button");
@@ -115,16 +115,10 @@
       //let panier = document.getElementsByClassName("gopanier");
       //console.log (panier);
       buttonPanier.addEventListener("click", function(event){
-        console.log("panierok");
-        console.log(event);  
-        console.log(peluche);
         var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
         panierPeluches.push(peluche);
-        console.log(panierPeluches);
         localStorage.setItem("panier", JSON.stringify(panierPeluches));
-        console.log(panierPeluches);
-        
-      })
+       })
     
     })
     .catch(function(err) {
