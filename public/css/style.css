@@ -109,3 +109,24 @@ body{
     border: 2px solid #e78b06;
 }
 
+/*------------page valider---------*/
+.section-page-valider{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.article-page-valider{
+    background-color:antiquewhite;
+    width:90%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+
+}
+
+
+

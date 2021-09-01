@@ -132,7 +132,11 @@
               boutonValider.appendChild(lienValider);
               } 
 
-              boutonValider.addEventListener('click', function (event){
+            afficherPanier ();
+            etatPanier();
+            lien();
+
+            boutonValider.addEventListener('click', function (event){
                 event.preventDefault();
                 //recupération des valeurs du formulaire
                 let contact ={
@@ -140,34 +144,44 @@
                   lastName: document.getElementById("validationPrenom").value,
                   address: document.getElementById("validationAdresse").value,
                   city: document.getElementById("validationCodePostal").value,
-                  email: document.getElementById("validationEmail").value
+                  email: document.getElementById("validationEmail").value,    
               }
             
-
-                let tableauProduit = JSON.parse(localStorage.getItem("panier")) ||  [];
-                var products = JSON.stringify(tableauProduit.map(function(produit) {
-                  return produit._id;
+                let products= [];
+                console.log(products);
+                let tableauProduit = JSON.parse(localStorage.getItem("panier"));
+                var prod = (tableauProduit.map(function(produit) {
+                  return products.push(produit._id);
                   }));
 
-                console.log(JSON.stringify({contact,products}));
-                fetch("http://localhost:3000/api/teddies/order",{
-                      method: "POST",
-                      headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      },
-                        body: JSON.stringify({contact,products})
-                        
-                    });
+                  console.log(products);
+
+                  fetch("http://localhost:3000/api/teddies/order",{
+                    method: "POST", 
+                    headers:{
+                      "accept": "application.json",
+                      "content-type": "application/json"
+                    },
+                    body: JSON.stringify({contact, products})
+                  })
+                    .then(function(res){
+                    return res.json(); 
+                    })
+                    .then(function(commande){
+                      localStorage.setItem("stockCommande", JSON.stringify(commande));
+                      localStorage.setItem("panier", JSON.stringify([]));
+                    console.log(commande); 
+                  })
+                  //let lienPageValider= document.createElement("a");
+                  //lienPageValider.setAttribute("href", "html/valider.html");
+                  //boutonValider.appendChild(lienPageValider);
+                  document.location.href="valider.html";
 
 
-              console.log(tableauProduit);
-              })
-            afficherPanier ();
-            etatPanier();
-            lien();
+                
 
-            
+                })
+    
       </script>
       </main>
       </body>
