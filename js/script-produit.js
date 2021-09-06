@@ -1,93 +1,83 @@
+//CONNEXION AU DOM PAR ARTICLE
 let container = document.getElementById("container");
-       
+console.log(container);
+//RECUPERATION DE L'id 
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
-
-
-
-
+console.log(urlParams);
+//REQUETE POUR GET POUR RECUPERER INFO D'UNE SEUL PELUCHE
 fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
-.then(function(res){
-return res.json(); 
-console.log(res);
-})
-.then(function(peluche){
-let imgDiv = document.createElement("div");
-imgDiv.classList.add("imgpart");
-let image = document.createElement("img");
-image.setAttribute("src", peluche.imageUrl);
-image.classList.add("img-produit")
+    .then(function(res){
+        return res.json(); 
+    })
+    //RETOUR DE API NOMMER PELUCHE
+    .then(function(peluche){
 
-let infoDiv = document.createElement("div");
-infoDiv.classList.add("infopart");
-let pelucheNom = document.createElement("H5");
-pelucheNom.innerText=peluche.name; 
-let pPrice = document.createElement("p");
-pPrice.innerText = peluche.price/100+"€";
-let couleurs = peluche.colors;
-console.log(couleurs);
-let buttonPanier = document.createElement("button");
-buttonPanier.classList.add("btn", "btn-warning", "ajoutPanier");
-//butonPanier
-let ajouter = document.createElement("a");
-ajouter.classList.add("gopanier");
-ajouter.innerText="Ajouter au panier";
-ajouter.setAttribute("href", "#");
-buttonPanier.appendChild(ajouter);
+        //CREATION DES ELEMENTS DE LA PAGE
+        let infoDiv = document.createElement("div");
+        let pelucheNom = document.createElement("H5");
+        let imgDiv = document.createElement("div");
+        let pPrice = document.createElement("p");
+        let buttonPanier = document.createElement("button");
+        let ajouter = document.createElement("a");
+        let image = document.createElement("img");
+        let pDescription = document.createElement("p");
 
-console.log(buttonPanier);
+        //Creation element menu couleur
+        let tab = document.createElement("div");
+        let select = document.createElement("select");
+        let option = document.createElement("option");
 
+        //AJOUT DES CLASS
+        infoDiv.classList.add("infopart");
+        imgDiv.classList.add("imgpart");
+        image.classList.add("img-produit");
+        buttonPanier.classList.add("btn", "btn-warning", "ajoutPanier");
+        ajouter.classList.add("gopanier");
+        select.classList.add("form-select", "form-select-lg", "mb-3");
 
-//menu couleur
-let tab = document.createElement("div");
-let select = document.createElement("select");
-select.classList.add("form-select", "form-select-lg", "mb-3");
-select.setAttribute("aria-label", ".form-select-lg example");
-console.log(select);
-let option = document.createElement("option");
-option.setAttribute("selected", "");
-option.innerText="Couleurs";
-console.log(option);
+        //AJOUT ATTRIBUT
+        image.setAttribute("src", peluche.imageUrl);
+        ajouter.setAttribute("href", "#");
+        select.setAttribute("aria-label", ".form-select-lg example");
+        option.setAttribute("selected", "");
 
-console.log(infoDiv);
-tab.appendChild(select);
-select.appendChild(option);
-let pDescription = document.createElement("p");
-pDescription.innerText= peluche.description ;
+        //AJOUT DU TEXTE
+        pelucheNom.innerText=peluche.name; 
+        pPrice.innerText = peluche.price/100+"€";
+        let couleurs = peluche.colors;
+        ajouter.innerText="Ajouter au panier";
+        option.innerText="Couleurs";
+        pDescription.innerText= peluche.description ;
 
-
-console.log(pPrice);
-console.log(infoDiv);
-console.log(imgDiv);
-console.log(pPrice);
-
-container.appendChild(imgDiv);
-imgDiv.appendChild(image);
-container.appendChild(infoDiv);
-infoDiv.appendChild(pelucheNom);
-infoDiv.appendChild(tab);
-infoDiv.appendChild(pDescription);
-infoDiv.appendChild(pPrice);
-infoDiv.appendChild(buttonPanier);
-
-for(color of peluche.colors){
-let options = document.createElement("option");
-options.setAttribute("value", peluche.colors.indexOf(color));
-options.innerText=color;
-select.appendChild(options);
-console.log(tab);
-}
-// partie panier
-//let panier = document.getElementsByClassName("gopanier");
-//console.log (panier);
-buttonPanier.addEventListener("click", function(event){
-var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-panierPeluches.push(peluche);
-localStorage.setItem("panier", JSON.stringify(panierPeluches));
-})
+        //AJOUT DES ELEMENT DANS LE DOM
+        buttonPanier.appendChild(ajouter);
+        tab.appendChild(select);
+        select.appendChild(option);
+        container.appendChild(imgDiv);
+        imgDiv.appendChild(image);
+        container.appendChild(infoDiv);
+        infoDiv.appendChild(pelucheNom);
+        infoDiv.appendChild(tab);
+        infoDiv.appendChild(pDescription);
+        infoDiv.appendChild(pPrice);
+        infoDiv.appendChild(buttonPanier);
+        //CREATION D'UNE BOUCLE POUR RECUPERER LES COULEURS DES PELUCHES
+        for(color of peluche.colors){
+            let options = document.createElement("option");
+            options.setAttribute("value", peluche.colors.indexOf(color));
+            options.innerText=color;
+            select.appendChild(options);
+        }
+    //AJOUT ELEMENT DANS LE PANIER VIA LOCALSTORAGE
+    buttonPanier.addEventListener("click", function(event){
+        var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
+        panierPeluches.push(peluche);
+        localStorage.setItem("panier", JSON.stringify(panierPeluches));
+    })
 
 })
-.catch(function(err) {
-// Une erreur est survenue
+    .catch(function(err) {
+    console.log("Probleme lié à API ou à la requete");
 });      
