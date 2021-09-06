@@ -24,89 +24,65 @@
             </div>
           </nav>
       </header>
-      <section>
-        <h2 class="titre-accueil titre-index">Collection Peluches Orinoco 2021</h2>
+      <section class="section-page-index">
+        <h2 class="titre-accueil titre-index">Collection Peluches <span class="enseigne">Orinoco</span> 2021</h2>
+        <p class="citation">"Venez découvrir notre sélection de peluches de conception artisanale. Entierement cousue main. Fait avec des materieaux qui restpectent l'environement ainsi que les normes de sécurités. Pour que nos bambins puissent pleinement en profiter"
+        </br>  <span>Hernan Crespo PDG <span class="enseigne"></span>Orinoco</span></p>
         <article id="container" class="container-card">
         </article>
       </section>
-
-      
-   
-
-
-
-      <footer >
-        <ul>site partenaire
-          <li>
-          <a>Orinobook</a>
-          </li>
-        </ul>
-
-      </footer>
-    <script>
-      let container = document.getElementById("container");
-      
-      
-      // let carte = document.getElementsByClassName("card");
-      // console.log(card);
-      // let article = document.createElement("article");
-      // article.classList.add("container-card");
-      // console.log(article);
-      // let section = document.getElementsByTagName("section");
-      // console.log(section);
-     
-      
-      
-
-   
-
-    fetch("http://localhost:3000/api/teddies")
-  .then(function(res){
-      return res.json(); 
-      console.log(res);
-  })
-  .then(function(peluches){
-  for(peluche of peluches){
-  console.log(peluche);  
-  let card = document.createElement("div");
-  card.classList.add("card","card-index");
-  let cardBody = document.createElement("div");
-  cardBody.classList.add("card-body");
-  let cardTitle = document.createElement("H5");
-  cardTitle.classList.add("card-title");
-  cardTitle.innerText= peluche.name;
-    
-    let link = document.createElement("a");
-    link.classList.add("btn"); 
-    link.classList.add("btn-primary");           
-    link.setAttribute("href", "html/produit.html?id="+peluche._id);
-    link.innerText = "Voir plus";
-  
-    let image = document.createElement("img");
-
-    image.setAttribute("src", peluche.imageUrl);
-    image.setAttribute("alt","peluche-orinoco" );
-    image.classList.add("card-img-top");
-  
-    container.appendChild(card);
-    card.appendChild(image); 
-    card.appendChild(cardBody);
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(link);
-    console.log(card);  
-    console.log(peluche.color);
-    
-    //console.log(card);
-
-  }
-})
-  .catch(function(err) {
-    // Une erreur est survenue
-  });
-    
-      
-    
-    </script>
+      <footer>
+        <div class="row justify-content-around mb-0 pt-5 mx-4">
+            <div class="col-xl-2 col-md-4 order-xl-1 order-4 mr-xl-0 my-auto">
+                <ul class="list-unstyled mt-md-3 mt-5">
+                    <li>Réseaux sociaux </li>
+                    <li class="social"> <span> <i class="fa fa-facebook" aria-hidden="true"></i></span> <span> <i class="fa fa-instagram" aria-hidden="true"></i> </span> <span> <i class="fa fa-twitter" aria-hidden="true"></i> </span> </li>
+                </ul>
+                <ul class="list-unstyled my-xl-4 my-md-3">
+                    <li>Copyright</li>
+                    <li>&#9400; Nutrition 2019</li>
+                </ul>
+            </div>
+            <div class="col-xl-2 col-md-3 pt-4 order-1">
+                <ul class="list-unstyled">
+                    <li class="mt-md-0 mt-4">Nos sites partenaires</li>
+                    <li><a href="#">Oribook </a></li>
+                    <li><a href="#">Oritextil</a></li>
+                    <li>Product Features</li>
+                    <li>Pricing</li>
+                </ul>
+            </div>
+            <div class="col-xl-2 col-md-3 pt-4 order-2">
+                <ul class="list-unstyled">
+                    <li class="mt-md-0 mt-4">Your needs</li>
+                    <li>Intergrated Security </li>
+                    <li>Core Features</li>
+                    <li>Product Features</li>
+                    <li>Pricing</li>
+                </ul>
+            </div>
+            <div class="col-xl-auto col-md-3 pt-4 my-sm-0 order-md-3 order-sm-1 ">
+                <ul class="list-unstyled">
+                    <li class="mt-md-0 mt-4">Offer</li>
+                    <li>Intergrated Security </li>
+                    <li>Core Features</li>
+                    <li>Product Features</li>
+                    <li>Pricing</li>
+                </ul>
+            </div>
+            <div class="col-xl-auto col-md-6 col-12 pt-4 my-sm-0 order-6 ">
+                <div class="form-group "><label for="email" class="mb-3"><b>Subscribe to our newsletter and Get 10% off</b></label><input type="email" class="form-control form-control-lg" placeholder="Enter email" id="email"></div><button type="button" class="btn btn-primary btn-lg btn-block my-2 Subscribe mt-4 mb-3">Subscribe</button>
+            </div>
+        </div>
+        <div class="row justify-content-center px-3 py-3 pt-5">
+            <div class="col text-center">
+                <p class="mb-0">*These statement have not evaluated by the Food and Drug Addministrations.</p>
+                <p>This product is not intented to diagonse,treat,cure, or prevent any disease.</p>
+            </div>
+        </div>
+    </footer>
+    </main>
+    <script type="text/javascript" src="js/script-index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--

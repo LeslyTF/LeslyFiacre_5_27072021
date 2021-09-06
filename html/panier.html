@@ -37,25 +37,21 @@
                 </div>
                 <div class="col-md-4">
                   <label for="validationPrenom" class="form-label">Prénom</label>
-                  <input type="text" class="form-control" id="validationPrenom" placeholder="Dominique" required>
+                  <input type="text" class="form-control" id="validationPrenom" value="" placeholder="Dominique" required>
                 </div>
                 <div class="col-md-4">
                   <label for="validationEmail" class="form-label">Email</label>
                   <div class="input-group">
-                    <input type="email" class="form-control" id="validationEmail"  placeholder="@" required>
+                    <input type="email" class="form-control" id="validationEmail" value="" placeholder="@" required>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                   <label for="validationAdresse" class="form-label">Adresse</label>
-                  <input type="text" class="form-control" id="validationAdresse" placeholder="Entrez votre adresse" required>
+                  <input type="text" class="form-control" id="validationAdresse" value="" placeholder="Entrez votre adresse" required>
                 </div>
-                <div class="col-md-3">
-                  <label for="validationCodePostal" class="form-label">Code Postal</label>
-                  <input type="text" class="form-control" id="validationCodePostal" placeholder="CP" required>
-                </div>
-                <div class="col-md-3">
-                  <label for="validationPays" class="form-label">Pays</label>
-                  <input type="text" class="form-control" id="validationPays" required>
+                <div class="col-md-4">
+                  <label for="validationPays" class="form-label">Ville</label>
+                  <input type="text" class="form-control" id="validationVille" value="" required>
                 </div>
                 <div class="col-12">
                   <button id="validerAchat" class="btn btn-primary" type="submit">Acheter</button>
@@ -67,122 +63,7 @@
       <footer> 
       </footer>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-      <script>
-          //Recuperation des données du local storage.
-          var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-          console.log(panierPeluches);
-
-          //creation du contenu de l'affichage du panier.
-          let articles = document.getElementById("container");
-          let titreEtatPanier = document.createElement("h3");
-          titreEtatPanier.classList.add("titre-partie-panier");
-          console.log(titreEtatPanier);
-          console.log(panierPeluches.length);
-          let boutonValider = document.getElementById("validerAchat");
-          
-          function etatPanier (){
-            let etat;
-            if(panierPeluches.length >= 1){
-                  console.log(panierPeluches.length);
-                  etat = titreEtatPanier.textContent="Résumé du panier";
-            }else{
-                  
-              etat = titreEtatPanier.textContent= "Votre panier est vide";
-
-                }
-          }
-
-          articles.appendChild(titreEtatPanier);
-          let ol = document.createElement("ol");
-          
-          ol.classList.add("list-group", "list-group-numbered", "ol-contenant");
-
-          //fonction afficher panier
-          function afficherPanier (){
-            // nettoyage du panier 
-            ol.innerHTML="";
-            //creation du panier
-            panierPeluches.map((article, i) => {
-              let lignePanier = document.createElement("li");
-              lignePanier.innerHTML= article.name;
-              let spanPrix = document.createElement("span");
-              spanPrix.innerText= "Prix: " + article.price / 100 +"€";
-              lignePanier.classList.add("list-group-item", "justify-content-between", "ligne-panier");
-              let enlever = document.createElement("button");
-              enlever.classList.add("btn-danger", "retirer");
-              enlever.onclick =  function (event){
-                panierPeluches.splice(i, 1);
-                localStorage.setItem("panier", JSON.stringify(panierPeluches));
-                etatPanier();
-                afficherPanier ();
-              }
-              console.log(lignePanier);
-              enlever.innerText= "Retirer";
-              articles.appendChild(ol);
-              ol.appendChild(lignePanier);
-              lignePanier.appendChild(spanPrix);
-              lignePanier.appendChild(enlever);
-              console.log(panierPeluches);
-            });
-          }
-              //test creation de fonction vers la page de remerciement
-              function lien (){
-              let lienValider = document.createElement("a");
-              lienValider.setAttribute("href", "html/valider.html");
-              boutonValider.appendChild(lienValider);
-              } 
-
-            afficherPanier ();
-            etatPanier();
-            lien();
-
-            boutonValider.addEventListener('click', function (event){
-                event.preventDefault();
-                //recupération des valeurs du formulaire
-                let contact ={
-                  firstName:document.getElementById("validationNom").value,
-                  lastName: document.getElementById("validationPrenom").value,
-                  address: document.getElementById("validationAdresse").value,
-                  city: document.getElementById("validationCodePostal").value,
-                  email: document.getElementById("validationEmail").value,    
-              }
-            
-                let products= [];
-                console.log(products);
-                let tableauProduit = JSON.parse(localStorage.getItem("panier"));
-                var prod = (tableauProduit.map(function(produit) {
-                  return products.push(produit._id);
-                  }));
-
-                  console.log(products);
-
-                  fetch("http://localhost:3000/api/teddies/order",{
-                    method: "POST", 
-                    headers:{
-                      "accept": "application.json",
-                      "content-type": "application/json"
-                    },
-                    body: JSON.stringify({contact, products})
-                  })
-                    .then(function(res){
-                    return res.json(); 
-                    })
-                    .then(function(commande){
-                      localStorage.setItem("stockCommande", JSON.stringify(commande));
-                      localStorage.setItem("panier", JSON.stringify([]));
-                    console.log(commande); 
-                  })
-                  //let lienPageValider= document.createElement("a");
-                  //lienPageValider.setAttribute("href", "html/valider.html");
-                  //boutonValider.appendChild(lienPageValider);
-                  document.location.href="valider.html";
-
-
-                
-
-                })
-    
-      </script>
+      <script type="text/javascript" src="../js/script-panier.js"></script>
       </main>
       </body>
       </html>
