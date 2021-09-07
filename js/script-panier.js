@@ -1,6 +1,21 @@
 //RECUPERATION DES DONNEES DU LOCALSTORAGE POUR LA GESTION DU CONTENU DU PANIER
 var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
 
+
+ let recupPrix = [];
+let total = 0; 
+
+
+    
+
+
+
+
+
+
+
+
+
 //CREATION D'UNE FONCTION POUR RENSEIGNER SUR LE REMPLISSAGE DU PANIER
 function etatPanier (){
     let etat;
@@ -13,10 +28,18 @@ function etatPanier (){
 
 //FONCTION POUR AFFICHER LE CONTENU DU PANIER
 function afficherPanier (){
-    //Nettoyage du panier 
+    //Nettoyage du panier
     ol.innerHTML="";
     //Création du panier
     panierPeluches.map((article, i) => {
+        
+        recupPrix.push(article.price);
+        const reducer = (accumulator, currentValue) =>accumulator + currentValue;
+        total = recupPrix.reduce(reducer, 0);
+
+
+
+
         //Création des elements de la page partie paier
         let lignePanier = document.createElement("li");
         let spanPrix = document.createElement("span");
@@ -32,6 +55,18 @@ function afficherPanier (){
         enlever.onclick =  function (event){
             panierPeluches.splice(i, 1);
             localStorage.setItem("panier", JSON.stringify(panierPeluches));
+
+
+            panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
+            panPeluches.map((art, i) => {
+            recupPrix=[];
+            recupPrix.push(art.price);
+            const reducer = (accumulator, currentValue) =>accumulator + currentValue;
+            const total = recupPrix.reduce(reducer, 0);});
+            console.log(total);
+
+
+
             etatPanier();
             afficherPanier ();
         }
@@ -101,3 +136,4 @@ boutonValider.addEventListener('click', function (event){
     //LIEN VERS PAGE VALIDER APRES VALIDATION ACHAT
     document.location.href="valider.html";
 })
+console.log(total);
