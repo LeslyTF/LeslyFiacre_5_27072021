@@ -3,13 +3,18 @@ var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
 
 
  let recupPrix = [];
-let total = 0; 
-
-
-    
+let total = 0;
 
 
 
+            //function totoo(){
+            //panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
+            //panPeluches.map((art, i) => {
+            //recupPrix=[];
+            //recupPrix.push(art.price);
+            //const reducer = (accumulator, currentValue) =>accumulator + currentValue;
+            //const total = recupPrix.reduce(reducer, 0);});
+            //}
 
 
 
@@ -20,7 +25,7 @@ let total = 0;
 function etatPanier (){
     let etat;
     if(panierPeluches.length >= 1){
-          etat = titreEtatPanier.textContent="Résumé du panier";
+          etat = titreEtatPanier.textContent="Résumé du panier "+ total/100 +"€";
     }else{
       etat = titreEtatPanier.textContent= "Votre panier est vide";
     }
@@ -57,12 +62,14 @@ function afficherPanier (){
             localStorage.setItem("panier", JSON.stringify(panierPeluches));
 
 
-            panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-            panPeluches.map((art, i) => {
-            recupPrix=[];
-            recupPrix.push(art.price);
-            const reducer = (accumulator, currentValue) =>accumulator + currentValue;
-            const total = recupPrix.reduce(reducer, 0);});
+            //panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
+            //console.log(panPeluches);
+            //panPeluches.map((art, i) => {
+            //recupPrix=[];
+            //recupPrix.push(art.price);
+            //const reducer = (accumulator, currentValue) =>accumulator + currentValue;
+            //const total = recupPrix.reduce(reducer, 0);});
+            window.location.reload();
             console.log(total);
 
 
@@ -70,6 +77,7 @@ function afficherPanier (){
             etatPanier();
             afficherPanier ();
         }
+
       //AJOUT DES ELEMENTS DANS LE DOM
       articles.appendChild(ol);
       ol.appendChild(lignePanier);
@@ -99,6 +107,9 @@ etatPanier();
 //VALIDATION DE L'ACHAT
 boutonValider.addEventListener('click', function (event){
     event.preventDefault();
+    if (panierPeluches.length < 1){
+        window.alert("Votre panier est vide");
+    }else{
     //Récupération des valeurs du formulaire pour envoi à l'api  "creation de l'objet contact"
     let contact ={
         firstName:document.getElementById("validationPrenom").value,
@@ -135,5 +146,7 @@ boutonValider.addEventListener('click', function (event){
     })
     //LIEN VERS PAGE VALIDER APRES VALIDATION ACHAT
     document.location.href="valider.html";
-})
+}})
 console.log(total);
+localStorage.setItem("prixFinal", JSON.stringify(total/100));
+
