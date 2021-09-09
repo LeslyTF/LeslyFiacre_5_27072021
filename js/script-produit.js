@@ -1,10 +1,8 @@
 //CONNEXION AU DOM PAR ARTICLE
 let container = document.getElementById("container");
-console.log(container);
 
 //RECUPERATION DE L'id 
 const queryString = window.location.search;
-console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 console.log(urlParams);
 

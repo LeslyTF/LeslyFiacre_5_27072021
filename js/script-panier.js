@@ -123,10 +123,14 @@ boutonValider.addEventListener('click', function (event){
         localStorage.setItem("stockCommande", JSON.stringify(commande));
         //VIDER LE PANIER APRES REPONSE DE L'API
         localStorage.setItem("panier", JSON.stringify([]));
-    })
-    //LIEN VERS PAGE VALIDER APRES VALIDATION ACHAT
+        //LIEN VERS PAGE VALIDER APRES VALIDATION ACHAT
     document.location.href="valider.html";
     localStorage.setItem("prixFinal", JSON.stringify(total/100));
 
+    })
+    .catch(function(err) {
+        console.log("Erreur lié à l'API ou à requete");
+      });
+    
 }}})
 
