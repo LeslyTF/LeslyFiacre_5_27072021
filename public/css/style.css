@@ -16,7 +16,8 @@
 }
 /*--------------------partie Head------------------*/
 header{
-    background-image: linear-gradient(175deg,#f7f1f1,#9356DC);}
+    background-image: linear-gradient(175deg,#f7f1f1,#9356DC);
+}
 #navid{
     padding: 0;
 }
@@ -30,16 +31,22 @@ a.navbar-brand{
     background-color:#f3e9f1 ;
 }
 /*footer*/
+footer{
+    background-color: #9356DC;
+    color: white;
+    margin-top: 10%;
+    font-size: x-large;
+}
 
 /*-------------------body font---------------*/
-
 body{
-    background-color: #f3e9f1;
-    padding:1%;
+    padding:2px;
     font-family: 'baloo';
 }
 /*---------------------page index------------*/
-
+section{
+    background-color: white;
+}
 
 .titre-index{
     text-align: center;
@@ -56,12 +63,11 @@ body{
     width:30%;
     margin:1%;
     border-radius:8%;
-    box-shadow: 10px 10px 40px rgb(177, 177, 177);
+    box-shadow: 10px 10px 40px rgb(102, 97, 92);
 }
 .card-img-top{
     height:100%;
     border-radius: 8% 8% 0% 0%;
-    
 }
 .card-body{
     padding-left: 5%;
@@ -74,9 +80,6 @@ body{
     padding:1%;
     border-radius: 30px;
     box-shadow: 8px 5px 10px grey;
-}
-footer{
-   
 }
 /*---------------------Page produit---------------*/
 .container-card{
@@ -151,17 +154,6 @@ footer{
     margin-top: 5%;
     text-align: center;
 
-}
-
-
-
-/*
-.ligne-merci{
-    text-align: center;
-}
-
-.ligne-num-commande{
-    text-align: center;
 }
 
 

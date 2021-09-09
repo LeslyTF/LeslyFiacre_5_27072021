@@ -1,11 +1,13 @@
 //CONNEXION AU DOM PAR ARTICLE
 let container = document.getElementById("container");
 console.log(container);
+
 //RECUPERATION DE L'id 
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 console.log(urlParams);
+
 //REQUETE POUR GET POUR RECUPERER INFO D'UNE SEUL PELUCHE
 fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
     .then(function(res){
@@ -23,7 +25,6 @@ fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
         let ajouter = document.createElement("a");
         let image = document.createElement("img");
         let pDescription = document.createElement("p");
-
         //Creation element menu couleur
         let tab = document.createElement("div");
         let select = document.createElement("select");
@@ -39,7 +40,7 @@ fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
 
         //AJOUT ATTRIBUT
         image.setAttribute("src", peluche.imageUrl);
-        ajouter.setAttribute("href", "#");
+        //ajouter.setAttribute("href", "#");
         select.setAttribute("aria-label", ".form-select-lg example");
         option.setAttribute("selected", "");
 
@@ -79,5 +80,5 @@ fetch("http://localhost:3000/api/teddies/"+urlParams.get('id'))
 
 })
     .catch(function(err) {
-    console.log("Probleme lié à API ou à la requete");
+        console.log("Probleme lié à API ou à la requete");
 });      

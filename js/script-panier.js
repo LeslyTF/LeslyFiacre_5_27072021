@@ -1,25 +1,10 @@
 //RECUPERATION DES DONNEES DU LOCALSTORAGE POUR LA GESTION DU CONTENU DU PANIER
 var panierPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-
-
- let recupPrix = [];
+// TABLEAU POUR RECUPERATION DES PRIX POUR INCREMENTER LE PRIX FINAL DE LA PAGE VALIDER
+let recupPrix = [];
+//PRIX TOTAL DE LA PAGE VALIDER
 let total = 0;
-
-
-
-            //function totoo(){
-            //panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-            //panPeluches.map((art, i) => {
-            //recupPrix=[];
-            //recupPrix.push(art.price);
-            //const reducer = (accumulator, currentValue) =>accumulator + currentValue;
-            //const total = recupPrix.reduce(reducer, 0);});
-            //}
-
-
-
-
-
+let formok;
 
 //CREATION D'UNE FONCTION POUR RENSEIGNER SUR LE REMPLISSAGE DU PANIER
 function etatPanier (){
@@ -30,7 +15,6 @@ function etatPanier (){
       etat = titreEtatPanier.textContent= "Votre panier est vide";
     }
 }
-
 //FONCTION POUR AFFICHER LE CONTENU DU PANIER
 function afficherPanier (){
     //Nettoyage du panier
@@ -41,9 +25,6 @@ function afficherPanier (){
         recupPrix.push(article.price);
         const reducer = (accumulator, currentValue) =>accumulator + currentValue;
         total = recupPrix.reduce(reducer, 0);
-
-
-
 
         //Création des elements de la page partie paier
         let lignePanier = document.createElement("li");
@@ -60,20 +41,8 @@ function afficherPanier (){
         enlever.onclick =  function (event){
             panierPeluches.splice(i, 1);
             localStorage.setItem("panier", JSON.stringify(panierPeluches));
-
-
-            //panPeluches = JSON.parse(localStorage.getItem("panier")) || [];
-            //console.log(panPeluches);
-            //panPeluches.map((art, i) => {
-            //recupPrix=[];
-            //recupPrix.push(art.price);
-            //const reducer = (accumulator, currentValue) =>accumulator + currentValue;
-            //const total = recupPrix.reduce(reducer, 0);});
             window.location.reload();
             console.log(total);
-
-
-
             etatPanier();
             afficherPanier ();
         }
@@ -106,7 +75,7 @@ etatPanier();
 
 //VALIDATION DE L'ACHAT
 boutonValider.addEventListener('click', function (event){
-    event.preventDefault();
+   event.preventDefault();
     if (panierPeluches.length < 1){
         window.alert("Votre panier est vide");
     }else{
@@ -118,6 +87,17 @@ boutonValider.addEventListener('click', function (event){
         city: document.getElementById("validationVille").value,
         email: document.getElementById("validationEmail").value    
     }
+    //VERIFICATION DES COORDONNEES SAISIES
+    let regexNom = /^[a-zA-Z-\s]+$/;
+    let regexNum = /[0-9]/;
+    let regexCharSpec = /[§!@#$%^&*(),.?":{}|<>]/;
+    let regexMail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/y;
+    if (regexNom.test(contact.firstName)== false || regexNom.test(contact.lastName) == false || regexCharSpec.test(contact.address) == true || regexNom.test(contact.city) == false || regexMail.test(contact.email)== false) {
+        window.alert("Erreur verifiez vos coordonnées");
+        formok= false;
+        window.location.reload
+    }
+    else{
     //CREATION DU TABLEAU "PRODUCTS" POUR ENVOI A L'API
     let products= [];
     //BOUCLE POUR REMPLIR TABLEAU "PRODUCTS" PAR IMPLÉMENTATION DU LOCAL STORAGE
@@ -146,7 +126,7 @@ boutonValider.addEventListener('click', function (event){
     })
     //LIEN VERS PAGE VALIDER APRES VALIDATION ACHAT
     document.location.href="valider.html";
-}})
-console.log(total);
-localStorage.setItem("prixFinal", JSON.stringify(total/100));
+    localStorage.setItem("prixFinal", JSON.stringify(total/100));
+
+}}})
 
